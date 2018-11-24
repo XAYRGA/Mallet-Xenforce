@@ -39,7 +39,7 @@ local function updateCheck()
 				last_update_check = SysTime()
 				
 				telegram.confirmUpdate(highest_update_id )
-				--print("New high " , highest_update_id)
+			
 		end)	
 	end 
 end 
@@ -103,6 +103,16 @@ function telegram.kickChatMember(chat,user,untild)
 		until_date = until_d
 	
 	},NONE)
+	
+end 
+
+
+function telegram.getUserProfilePictures(uid, callb)
+	
+	telegram.apiPostRaw("getUserProfilePhotos", {
+		user_id = uid, 
+		offset = 0	
+	}, callb or NONE)
 	
 end 
 

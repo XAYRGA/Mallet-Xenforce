@@ -1,8 +1,8 @@
 
-local host = "oh my"
-local db = "oh murr. "
-local user = "pls murr"
-local password = "yes pls murr"
+local host = "murr"
+local db = "murr,daddy"
+local user = "Daddy"
+local password = "yiffme"
 
 
 local succ = sql.connect(host,db,user,password)
