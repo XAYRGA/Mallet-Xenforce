@@ -154,8 +154,11 @@ ModHook.Add("Telegram_NewChatMembers","CheckJoinGenerateNewID",function(chat,par
 				XENF.Log("Created new activationindex for user " .. uname,1,"ACTIVATION")
 			
 				local resx = telegram.sendMessage(chat.id,
-				"Welcome " .. uname.. " to the chat! To keep bots out, you must complete a CAPTCHA to be verified.\n\nPlease use the following URL and complete the CAPTCHA. You have *30 minutes* to complete the captcha, or you’ll automatically be *removed from the group!*\n\nhttp://www.xayr.ga/xenf/?actid=" .. uqid,
-				"Markdown",nil,nil,nil,
+                -- Telegram usernames are a-z, 0-9, and underscores, which are
+                -- all characters which need no escaping in HTML. Base64 uses
+                -- + and /, which are also fine in HTML.
+				"Welcome " .. uname.. " to the chat! To keep bots out, you must complete a CAPTCHA to be verified.\n\nPlease use the following URL and complete the CAPTCHA. You have <b>30 minutes</b> to complete the captcha, or you’ll automatically be <b>removed from the group!</b>\n\nhttp://www.xayr.ga/xenf/?actid=" .. uqid,
+				"HTML",nil,nil,nil,
 				timedCleanup
 				
 				)
@@ -296,8 +299,8 @@ itimer.Create("CheckActivations_TimeoutWarn",5,0,function()
 
 		if not WARNED[aid] then 		
 			telegram.sendMessage(psx,"Hey " .. 
-			tostring(un) .. ", you still need to verify that you’re not a robot! You’ll be removed from the chat in *8 minutes* if you don’t complete the CAPTCHA! \n\nPlease use the link below to verify!\n\n http://www.xayr.ga/xenf/?actid=" .. aid,  
-			"Markdown",
+			tostring(un) .. ", you still need to verify that you’re not a robot! You’ll be removed from the chat in <b>8 minutes</b> if you don’t complete the CAPTCHA! \n\nPlease use the link below to verify!\n\n http://www.xayr.ga/xenf/?actid=" .. aid,  
+			"HTML",
 			nil,
 			nil,
 			nil,
